@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:h="http://xmlns.jcp.org/jsf/html"
+  xmlns:f="http://xmlns.jcp.org/jsf/core">
+  <h:head>
+    <title>Proposal </title>
+    <script src='../js/lib.js' type='text/javascript'></script>
+    <link href="../css/style.css" rel="stylesheet" type="text/css" />
+  </h:head>
+  <h:body>
+    <div id="wrapper">
+      <div id="header">
+        <h1><a>IFAF</a></h1><h1>Rule Change Suggestion</h1>
+      </div>
+      <div id="content">
+          <div id="proposal">
+       <h:dataTable id="tempTable" value="#{proposalController.fullProposal}" var="pro">
+        <h:column>
+          <f:facet name="header">Proposal Title</f:facet>
+          <h:outputText value="#{pro.title}" class="important"/>
+        </h:column>
+        <h:column>
+          <f:facet name="header">Rule to Change</f:facet>
+          <h:outputText value="#{pro.rule}"/>
+        </h:column>
+        <h:column>
+          <f:facet name="header">Description</f:facet>
+          <h:outputText value="#{pro.description}"/>
+        </h:column>
+        <h:column>
+          <f:facet name="header">Justification</f:facet>
+          <h:outputText value="#{pro.justification}"/>
+        </h:column>
+        <h:column>
+          <f:facet name="header">Total Votes &nbsp; ↑ / ↓ / -</f:facet>
+          <h:outputText value="#{pro.upVotes} / #{pro.downVotes} / #{pro.absVotes}"/>
+        </h:column>
+        <h:column>
+          <f:facet name="header">Submitted By</f:facet>
+          <h:outputText value="#{pro.owner.username}"/>
+        </h:column>
+      </h:dataTable> 
+          </div>
+          <div id="comments">
+              <h:form id="votes">
+                  <h4>Cast a Vote</h4>
+                  <h:commandButton value="↑" action="#{proposalController.doUpVote()}"/>
+                  <h:commandButton value="↓" action="#{proposalController.doDownVote()}"/>
+                  <h:commandButton value="-" action="#{proposalController.doAbVote()}"/>
+              </h:form>
+              <h:form id="newComm">
+                    <h3>New Comment</h3>
+                        <h:inputTextarea value="#{proposalController.com.text}" id="comment" styleClass="propDesc1"></h:inputTextarea>
+                        <h:message for="comment"/>
+                        <h:commandButton value="Submit" action="#{proposalController.doAddComment()}"/>
+              </h:form>
+      <h:dataTable id="commTable" value="#{proposalController.comments}" var="com">
+        <h:column>
+          <f:facet name="header">Comment</f:facet>
+          <h:outputText value="#{com.text}" class="important"/>
+        </h:column>
+        <h:column>
+          <f:facet name="header">Submitted By</f:facet>
+          <h:outputText value="#{com.owner.username}"/>
+        </h:column>
+        <h:column>
+          <f:facet name="header">Time</f:facet>
+          <h:outputText value="#{com.timestamp}"/>
+        </h:column>
+      </h:dataTable> 
+          </div>
+     </div>
+   </div>
+ </h:body>
+</html>
+
